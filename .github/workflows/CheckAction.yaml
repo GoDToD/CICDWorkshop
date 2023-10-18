@@ -4,3 +4,7 @@ on: [push]
 jobs:
     firstJob:
         runs-on: ubuntu-lastest
+
+        steps:
+        - name: Echo current branch
+          run: echo "Current branch is ${{github.ref_name}}"
