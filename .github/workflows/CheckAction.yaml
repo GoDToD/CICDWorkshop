@@ -1,0 +1,6 @@
+name: CheckAction
+on: [push]
+
+jobs:
+    firstJob:
+        runs-on: ubuntu-lastest
