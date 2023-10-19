@@ -3,14 +3,14 @@ on:
   push:
     branches:
     - 'v**.**'
-    branches-ignore:
-    - 'v**.**-beta'
-    - 'v**.**.**'
-    - 'feature-**'
+    #branches-ignore:
+    #- 'v**.**-beta'
+    #- 'v**.**.**'
+    #- 'feature-**'
 
 jobs:
   scanRepo:
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-latest
 
     #scan and vulner abilites
     steps: 
