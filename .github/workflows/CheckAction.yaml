@@ -39,7 +39,8 @@ jobs:
       if: ${{failure()}}
       run: ls
 
-    - name: Upload file
+    - name: Upload report
+      if: ${{failure()}}
       uses: MeilCli/slack-upload-file@v3
       with:
         slack_token: ${{ secrets.SLACK_BOT_TOKEN}}
