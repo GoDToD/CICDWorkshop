@@ -2,7 +2,7 @@ name: CheckAction
 on: 
   push:
     branches:
-    - 'v**.**'
+    - 'V**.**'
 
 jobs:
   scanRepo:
