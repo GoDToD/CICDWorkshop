@@ -37,6 +37,15 @@ jobs:
 
     - name: view
       run: ls
+
+    - name: Upload file
+      uses: MeilCli/slack-upload-file@v3
+      with:
+        slack_token: ${{ secrets.SLACK_BOT_TOKEN}}
+        file_path: 'trivyReport.txt'
+        initial_comment: 'Report'
+      # thread_ts: 'option'
+
 #    - name: Slack Fail Notification
 #      if: ${{failure()}}
 #      uses: rtCamp/action-slack-notify@v2
