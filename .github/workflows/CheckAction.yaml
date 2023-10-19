@@ -30,12 +30,13 @@ jobs:
         image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
         format: 'table'
         output: 'trivyReport.txt'
-        exit-code: '0'
+        exit-code: '1'
         ignore-unfixed: true
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
 
     - name: view
+      if: ${{failure()}}
       run: ls
 
     - name: Upload file
@@ -44,7 +45,7 @@ jobs:
         slack_token: ${{ secrets.SLACK_BOT_TOKEN}}
         channel_id: ${{secrets.CHANNEL_ID}}
         file_path: './trivyReport.txt'
-        initial_comment: 'Report'
+        initial_comment: 'Trivy-Report'
       # thread_ts: 'option'
 
 #    - name: Slack Fail Notification
