@@ -42,7 +42,7 @@ jobs:
       uses: MeilCli/slack-upload-file@v3
       with:
         slack_token: ${{ secrets.SLACK_BOT_TOKEN}}
-        file_path: 'trivyReport.txt'
+        file_path: './trivyReport.txt'
         initial_comment: 'Report'
       # thread_ts: 'option'
 
