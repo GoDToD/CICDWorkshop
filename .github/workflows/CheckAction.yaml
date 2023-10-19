@@ -41,7 +41,7 @@ jobs:
 #    #sign image
         
     - name: Slack notification
-      run: echo "eee"
+      run: exit 0
 
 #    - name: Upload report
 #      run: echo
