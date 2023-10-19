@@ -34,63 +34,10 @@ jobs:
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
 
-    - name: Send custom JSON data to Slack workflow
-      id: slack
-      uses: slackapi/slack-github-action@v1.24.0
-      with:
-        # For posting a rich message using Block Kit
-        payload: |
-          {
-            "attachments": [
-              {
-                "blocks": [
-                  {
-                    "type": "context",
-                    "elements": [
-                      {
-                        "type": "image",
-                        "image_url": "${{secrets.USER_AVATAR}}",
-                        "alt_text": "cute cat"
-                      },
-                      {
-                        "type": "mrkdwn",
-                        "text": "*<example.com|CAT>*"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "section",
-                    "fields": [
-                      {
-                        "type": "mrkdwn",
-                        "text": "*Ref:*\nPaid Time Off"
-                      },
-                      {
-                        "type": "mrkdwn",
-                        "text": "*Event:*\n<example.com|Fred Enriquez>"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "section",
-                    "fields": [
-                      {
-                        "type": "mrkdwn",
-                        "text": "*Actions URL:*\nAug 10 - Aug 13"
-                      },
-                      {
-                        "type": "mrkdwn",
-                        "text": "*Commit:*\nPaid time off"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 #        
 #    #Build and push container  
 #    - name: Set up QEMU
