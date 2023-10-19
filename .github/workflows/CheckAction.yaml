@@ -18,13 +18,19 @@ jobs:
       with:
         repository: ''
         ref: ''
-#        
-#    - name: Scan repo
-#      uses: aquasecurity/trivy-action@master
-#      with:
-#        image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
-#        format: 'sarif'
-#        output: 'trivy-results.sarif'
+
+    - name: Build Docker image form Dockerfile 
+      run: |
+          docker build -t docker.io/my-organization/my-app:${{ github.sha }} .
+    - name: Scan repo
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
+        format: 'table'
+        exit-code: '1'
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
 #        
 #    #Build and push container  
 #    - name: Set up QEMU
