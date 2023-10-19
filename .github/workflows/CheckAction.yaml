@@ -41,7 +41,7 @@ jobs:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_COLOR: ${{ job.status }}
         SLACK_TITLE: "Scan Failed"
-        SlACK_MESSAGE: "Failed trivy scan, see uploaded report."
+        SLACK_MESSAGE: "Failed trivy scan, see uploaded report."
 #        
 #    #Build and push container  
 #    - name: Set up QEMU
