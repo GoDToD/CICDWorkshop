@@ -11,20 +11,86 @@ jobs:
   scanRepo:
     runs-on: ubuntu-latest
 
-    #scan and vulner abilites
+    #Check
     steps: 
     - name: Checkout code
       uses: actions/checkout@v3
       with:
         repository: ''
         ref: ''
-#        
-#    - name: Scan repo
-#      uses: aquasecurity/trivy-action@master
-#      with:
-#        image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
-#        format: 'sarif'
-#        output: 'trivy-results.sarif'
+
+    #Scan
+    - name: Build Docker image form Dockerfile 
+      run: |
+          docker build -t docker.io/my-organization/my-app:${{ github.sha }} .
+
+    - name: Scan repo
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
+        format: 'table'
+        exit-code: '0'
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
+
+    - name: Send custom JSON data to Slack workflow
+      id: slack
+      uses: slackapi/slack-github-action@v1.24.0
+      with:
+        # For posting a rich message using Block Kit
+        payload: |
+          {
+            "attachments": [
+              {
+                "blocks": [
+                  {
+                    "type": "context",
+                    "elements": [
+                      {
+                        "type": "image",
+                        "image_url": "${{secrets.USER_AVATAR}}",
+                        "alt_text": "cute cat"
+                      },
+                      {
+                        "type": "mrkdwn",
+                        "text": "*<example.com|CAT>*"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "section",
+                    "fields": [
+                      {
+                        "type": "mrkdwn",
+                        "text": "*Ref:*\nPaid Time Off"
+                      },
+                      {
+                        "type": "mrkdwn",
+                        "text": "*Event:*\n<example.com|Fred Enriquez>"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "section",
+                    "fields": [
+                      {
+                        "type": "mrkdwn",
+                        "text": "*Actions URL:*\nAug 10 - Aug 13"
+                      },
+                      {
+                        "type": "mrkdwn",
+                        "text": "*Commit:*\nPaid time off"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 #        
 #    #Build and push container  
 #    - name: Set up QEMU
