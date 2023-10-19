@@ -11,7 +11,7 @@ jobs:
   scanRepo:
     runs-on: ubuntu-latest
 
-    #scan and vulner abilites
+    #Check
     steps: 
     - name: Checkout code
       uses: actions/checkout@v3
@@ -19,9 +19,11 @@ jobs:
         repository: ''
         ref: ''
 
+    #Scan
     - name: Build Docker image form Dockerfile 
       run: |
           docker build -t docker.io/my-organization/my-app:${{ github.sha }} .
+
     - name: Scan repo
       uses: aquasecurity/trivy-action@master
       with:
@@ -31,6 +33,12 @@ jobs:
         ignore-unfixed: true
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
+
+    - name: Send GitHub Action trigger data to Slack workflow
+      id: slack
+      uses: slackapi/slack-github-action@v1.24.0
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 #        
 #    #Build and push container  
 #    - name: Set up QEMU
