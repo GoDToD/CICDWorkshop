@@ -13,8 +13,11 @@ jobs:
 
     #scan and vulner abilites
     steps: 
-#    - name: Checkout code
-#      uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        repository: ''
+        ref: ''
 #        
 #    - name: Scan repo
 #      uses: aquasecurity/trivy-action@master
@@ -43,8 +46,8 @@ jobs:
 #        tags: user/app:latest
 #    #sign image
         
-    - name: Slack notification
-      run: exit 0
+#    - name: Slack notification
+#      run: exit 0
 
 #    - name: Upload report
 #      run: echo
