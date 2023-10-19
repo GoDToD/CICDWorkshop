@@ -42,6 +42,11 @@ jobs:
         payload: |
           {
             "text": "Test",
+            "blocks": [
+              {
+                "text": "TTT"
+              }
+            ]
           }
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
