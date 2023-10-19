@@ -47,7 +47,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "GitHub Action build result: ${{ job.status }}\n"
+                  "text": "1efskafkefsp"
                 }
               }
             ]
