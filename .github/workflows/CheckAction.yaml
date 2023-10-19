@@ -1,35 +1,35 @@
 name: CheckAction
 on: 
-    push:
-        branches:
-            - v<digit>.<digit>
+  push:
+    branches:
+    - v<digit>.<digit>
 
 jobs:
-    scanRepo:
-        runs-on: ubuntu-lastest
+  scanRepo:
+    runs-on: ubuntu-lastest
 
-        steps: 
-        - name: Checkout code
-          uses: actions/checkout@v3
+    steps: 
+    - name: Checkout code
+      uses: actions/checkout@v3
         
-        - name: Scan repo
-          uses: aquasecurity/trivy-action@master
-          with:
-            image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
-            format: 'sarif'
-            output: 'trivy-results.sarif'
+    - name: Scan repo
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
 
-        - name: Vulner abilities
-          run: echo "eee"
+    - name: Vulner abilities
+      run: echo "eee"
         
-        - name: Build and push container
-          run: echo "Current branch is ${{github.ref_name}}"
+    - name: Build and push container
+      run: echo "Current branch is ${{github.ref_name}}"
 
-        - name: Sign image
-          run: echo "eee"
+    - name: Sign image
+      run: echo "eee"
         
-        - name: Slack notification
-          run: echo "eee"
+    - name: Slack notification
+      run: echo "eee"
 
-        - name: Upload report
-          run: echo
+    - name: Upload report
+      run: echo
