@@ -3,10 +3,9 @@ on:
   push:
     branches:
     - 'v**.**'
-    #branches-ignore:
-    #- 'v**.**-beta'
-    #- 'v**.**.**'
-    #- 'feature-**'
+    - ! 'v**.**-beta'
+    - ! 'v**.**.**'
+    - ! 'feature-**'
 
 jobs:
   scanRepo:
