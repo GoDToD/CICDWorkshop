@@ -41,23 +41,56 @@ jobs:
         # For posting a rich message using Block Kit
         payload: |
           {
-            "text": "GitHub Action build result: ${{ job.status }}\n",
-            "blocks": [
+            "attachments": [
               {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "1efskafkefsp"
-                }
+                "blocks": [
+                  {
+                    "type": "context",
+                    "elements": [
+                      {
+                        "type": "image",
+                        "image_url": "${{secrets.USER_AVATAR}}",
+                        "alt_text": "cute cat"
+                      },
+                      {
+                        "type": "mrkdwn",
+                        "text": "*<example.com|CAT>*"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "section",
+                    "fields": [
+                      {
+                        "type": "mrkdwn",
+                        "text": "*Ref:*\nPaid Time Off"
+                      },
+                      {
+                        "type": "mrkdwn",
+                        "text": "*Event:*\n<example.com|Fred Enriquez>"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "section",
+                    "fields": [
+                      {
+                        "type": "mrkdwn",
+                        "text": "*Actions URL:*\nAug 10 - Aug 13"
+                      },
+                      {
+                        "type": "mrkdwn",
+                        "text": "*Commit:*\nPaid time off"
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-
-    - name: test
-      run: echo "eeee" 
 #        
 #    #Build and push container  
 #    - name: Set up QEMU
