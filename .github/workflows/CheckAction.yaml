@@ -41,12 +41,8 @@ jobs:
         # For posting a rich message using Block Kit
         payload: |
           {
-            "text": "Test",
-            "blocks": [
-              {
-                "text": "TTT"
-              }
-            ]
+            "key": "value",
+            "foo": "bar"
           }
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
