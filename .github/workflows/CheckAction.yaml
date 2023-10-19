@@ -34,20 +34,27 @@ jobs:
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
 
-    - name: Post to a Slack channel
+    - name: Send custom JSON data to Slack workflow
       id: slack
       uses: slackapi/slack-github-action@v1.24.0
       with:
-        # Slack channel id, channel name, or user id to post message.
-        # See also: https://api.slack.com/methods/chat.postMessage#channels
-        # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
-        channel-id: '${{secrets.CHANNEL_ID}}'
-        # For posting a simple plain text message
-        slack-message: "GitHub build result: ${{ job.status }}\n"
+        # For posting a rich message using Block Kit
+        payload: |
+          {
+            "text": "GitHub Action build result: ${{ job.status }}\n",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "GitHub Action build result: ${{ job.status }}\n"
+                }
+              }
+            ]
+          }
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
     - name: test
       run: echo "eeee" 
