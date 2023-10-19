@@ -53,7 +53,7 @@ jobs:
         slack_token: ${{ secrets.SLACK_BOT_TOKEN}}
         channel_id: ${{secrets.CHANNEL_ID}}
         file_path: './trivyReport.txt'
-        initial_comment: 'Trivy-Report'      
+        initial_comment: 'Trivy-Report'
 #        
 #    #Build and push container  
 #    - name: Set up QEMU
