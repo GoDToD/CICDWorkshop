@@ -43,5 +43,5 @@ jobs:
     - name: Slack notification
       run: echo "eee"
 
-    - name: Upload report
-      run: echo
+#    - name: Upload report
+#      run: echo
