@@ -32,9 +32,9 @@ jobs:
         output: 'trivyReport.txt'
         ignore-unfixed: true
         vuln-type: 'os,library'
-        exit-code: ''
-        severity: 'CRITICAL,HIGH'
+        severity: 'CRITICAL,HIGH,MEDIUM'
     
+
     #Report file
     - name: Upload report
       if: ${{failure()}}
@@ -43,7 +43,7 @@ jobs:
         slack_token: ${{ secrets.SLACK_BOT_TOKEN}}
         channel_id: ${{secrets.CHANNEL_ID}}
         file_path: './trivyReport.txt'
-        initial_comment: 'Trivy-Report11'
+        initial_comment: 'Trivy-Report'
 #        
 #    #Build and push container  
 #    - name: Set up QEMU
