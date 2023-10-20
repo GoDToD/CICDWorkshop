@@ -31,10 +31,19 @@ jobs:
         format: 'table'
         output: 'trivyReport.txt'
         ignore-unfixed: true
-        vuln-type: 'os,library'
         exit-code: '1'
+        vuln-type: 'os,library'
         severity: 'CRITICAL'
     
+    #Send notification
+    - name: Slack Fail Notification
+      if: ${{failure()}}
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_COLOR: ${{ job.status }}
+        SLACK_TITLE: "Scan Failed"
+        SLACK_MESSAGE: "Failed trivy scan, see uploaded report."
 
     #Report file
     - name: Upload report
