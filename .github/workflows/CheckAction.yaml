@@ -33,7 +33,7 @@ jobs:
         ignore-unfixed: true
         vuln-type: 'os,library'
         exit-code: ''
-        severity: 'HIGH,CRITICAL'
+        severity: 'CRITICAL,HIGH'
     
     #Report file
     - name: Upload report
