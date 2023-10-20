@@ -49,6 +49,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build and push
+      id: build-and-push
       uses: docker/build-push-action@v5
       with:
         push: true
@@ -68,5 +69,4 @@ jobs:
       env:
         TAGS: ${{ github.sha }}
         COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
-        COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
         DIGEST: ${{ steps.build-and-push.outputs.digest }}
