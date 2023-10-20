@@ -74,4 +74,6 @@ jobs:
         COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
 
     - name: Verify
-      run: cosign verify --key ${{secrets.COSIGN_PUBLIC_KEY}} "${{secrets.DOCKERHUB_USERNAME}}/cicd-workshop:${{github.sha}}" | jq .
+      run: cosign verify --key env://COSIGN_PUBLIC_KEY "${{secrets.DOCKERHUB_USERNAME}}/cicd-workshop:${{github.sha}}" | jq .
+      env:
+        COSIGN_PUBLIC_KEY: ${{secrets.COSIGN_PUBLIC_KEY}}
