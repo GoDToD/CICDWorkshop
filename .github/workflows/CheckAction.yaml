@@ -32,7 +32,8 @@ jobs:
         output: 'trivyReport.txt'
         ignore-unfixed: true
         vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH,MEDIUM'
+        exit-code: '1'
+        severity: 'CRITICAL'
     
 
     #Report file
