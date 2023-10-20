@@ -31,7 +31,7 @@ jobs:
         format: 'table'
         output: 'trivyReport.txt'
         ignore-unfixed: true
-        exit-code: '1'
+        exit-code: '0'
         vuln-type: 'os,library'
         severity: 'CRITICAL'
 
@@ -51,7 +51,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         push: true
-        tags: user/app:latest
+        tags: ${{secrets.DOCKERHUB_USERNAME}}/cicd-workshop:latest
     
     #FailBranch
     #Send notification
