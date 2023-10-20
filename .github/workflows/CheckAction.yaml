@@ -32,7 +32,7 @@ jobs:
         output: 'trivyReport.txt'
         ignore-unfixed: true
         vuln-type: 'os,library'
-        severity: 'HIGH'
+        severity: 'HIGH,CRITICAL'
     
     #Report file
     - name: Upload report
