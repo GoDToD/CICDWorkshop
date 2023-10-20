@@ -87,3 +87,4 @@ jobs:
       env:
         TAGS: ${{ github.sha }}
         COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+        #ee
