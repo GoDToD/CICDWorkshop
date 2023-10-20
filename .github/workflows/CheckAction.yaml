@@ -11,6 +11,11 @@ jobs:
   scanRepo:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
     #Check
     steps: 
     - name: Checkout code
