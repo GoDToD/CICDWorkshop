@@ -34,7 +34,7 @@ jobs:
         vuln-type: 'os,library'
         severity: 'CRITICAL'
 
-    #SucceedBranch
+    #SuccessBranch
     #Build and push Dockerhub
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
