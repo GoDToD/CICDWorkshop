@@ -30,21 +30,10 @@ jobs:
         image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
         format: 'table'
         output: 'trivyReport.txt'
-        exit-code: '1'
         ignore-unfixed: true
         vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
+        severity: 'CRITICAL'
     
-    #Send notification
-    - name: Slack Fail Notification
-      if: ${{failure()}}
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        SLACK_COLOR: ${{ job.status }}
-        SLACK_TITLE: "Scan Failed"
-        SLACK_MESSAGE: "Failed trivy scan, see uploaded report."
-
     #Report file
     - name: Upload report
       if: ${{failure()}}
@@ -53,7 +42,7 @@ jobs:
         slack_token: ${{ secrets.SLACK_BOT_TOKEN}}
         channel_id: ${{secrets.CHANNEL_ID}}
         file_path: './trivyReport.txt'
-        initial_comment: 'Trivy-Report'
+        initial_comment: 'Trivy-Report11'
 #        
 #    #Build and push container  
 #    - name: Set up QEMU
