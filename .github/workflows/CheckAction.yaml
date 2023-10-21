@@ -3,9 +3,6 @@ on:
   push:
     branches:
     - 'v[0-9]+.[0-9]+'
-    - '!v*.*-beta'
-    - '!v*.*.*'
-    - '!feature-*'
 
 jobs:
   scanRepo:
