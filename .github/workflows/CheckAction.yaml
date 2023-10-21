@@ -68,9 +68,12 @@ jobs:
 
     - name: Sign image with a key
       run: |
-        cosign sign --yes --key env://COSIGN_PRIVATE_KEY "${{secrets.DOCKERHUB_USERNAME}}/cicd-workshop:${{github.sha}}"
+        cosign sign --yes --key env://COSIGN_PRIVATE_KEY "${{secrets.DOCKERHUB_USERNAME}}/cicd-workshop:@{DIGEST}"
       env:
         COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+        DIGEST: ${{ steps.build-and-push.outputs.digest }}
+
+
 
     - name: Verify
       run: cosign verify --key env://COSIGN_PUBLIC_KEY "${{secrets.DOCKERHUB_USERNAME}}/cicd-workshop:${{github.sha}}" | jq .
