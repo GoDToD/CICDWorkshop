@@ -3,19 +3,11 @@ on:
   push:
     branches:
     - 'v[0-9]+.[0-9]+'
-    - '!v*.*-beta'
-    - '!v*.*.*'
-    - '!feature-*'
 
 jobs:
   scanRepo:
     if: ${{ !contains(github.event.head_commit.message, '#NORUN') }}
     runs-on: ubuntu-latest
- 
-    permissions:
-      contents: read
-      packages: write
-      id-token: write
 
     #Check
     steps: 
@@ -39,7 +31,7 @@ jobs:
         ignore-unfixed: true
         exit-code: '1'
         vuln-type: 'os,library'
-        severity: 'CRITICAL'
+        severity: 'CRITICAL, HIGH'
 
     #SuccessBranch
     #Build and push Dockerhub
@@ -87,7 +79,7 @@ jobs:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_COLOR: ${{ job.status }}
         SLACK_TITLE: "Image build and signed"
-        SLACK_MESSAGE: "Name: test\nMetriculation: test\nEmail: abc@gmail.com\nGit: https://github.com/GoDToD/CICDWorkshop\nImage: https://hub.docker.com/repository/docker/evacdot/cicd-workshop"
+        SLACK_MESSAGE: "Name: Cheng Siyuan\nMetriculation: A0287262X\nEmail: e1285208@u.nus.edu\nGit: https://github.com/GoDToD/CICDWorkshop\nImage: https://hub.docker.com/repository/docker/evacdot/cicd-workshop"
 
     #FailBranch
     #Send notification
