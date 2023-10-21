@@ -88,7 +88,6 @@ jobs:
         SLACK_TITLE: "Image build and signed"
         SLACK_MESSAGE: "Name: test\nMetriculation: test\nEmail: abc@gmail.com\nGit: https://github.com/GoDToD/CICDWorkshop\nImage: https://hub.docker.com/repository/docker/evacdot/cicd-workshop"
 
-
     #FailBranch
     #Send notification
     - name: Slack Fail Notification
