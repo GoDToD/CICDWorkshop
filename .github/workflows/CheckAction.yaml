@@ -86,6 +86,7 @@ jobs:
         SLACK_TITLE: "Image build and signed"
         SLACK_MESSAGE: ""
         MSG_MINIMAL: true
+        SLACK_MSG_AUTHOR: ""
 
     #FailBranch
     #Send notification
