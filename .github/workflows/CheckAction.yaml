@@ -67,9 +67,7 @@ jobs:
         DIGEST: ${{ steps.build-and-push.outputs.digest }}
 
     - name: Verify
-      run: cosign verify --key env://COSIGN_PUBLIC_KEY "${{secrets.DOCKERHUB_USERNAME}}/cicd-workshop:${{github.sha}}" | jq .
-      env:
-        COSIGN_PUBLIC_KEY: ${{secrets.COSIGN_PUBLIC_KEY}}
+      run: cosign verify --key cosign.pub "${{secrets.DOCKERHUB_USERNAME}}/cicd-workshop:${{github.sha}}" | jq .
 
     #Send notification
     - name: Slack successful notification
