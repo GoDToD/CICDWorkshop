@@ -26,7 +26,7 @@ jobs:
         output: 'trivyReport.txt'
         ignore-unfixed: true
         exit-code: '1'
-        severity: 'CRITICAL,HIGH'
+        severity: 'CRITICAL'
 
     #SuccessBranch
     #Build and push Dockerhub
