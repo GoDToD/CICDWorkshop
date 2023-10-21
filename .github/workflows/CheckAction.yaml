@@ -85,7 +85,7 @@ jobs:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_COLOR: ${{ job.status }}
         SLACK_TITLE: "Image build and signed"
-        SLACK_MESSAGE: "Name: test\nMetriculation: test\nEmail: abc@gmail.com\nGit: <https://www.google.com|test>\n Image: <https://www.google.com|docker image link>"
+        SLACK_MESSAGE: "Name: test\nMetriculation: test\nEmail: abc@gmail.com\nGit: https://github.com/GoDToD/CICDWorkshop\nImage: https://hub.docker.com/repository/docker/evacdot/cicd-workshop"
 
 
     #FailBranch
