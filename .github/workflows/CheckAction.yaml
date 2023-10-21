@@ -11,6 +11,11 @@ jobs:
   scanRepo:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
     #Check
     steps: 
     - name: Checkout code
@@ -34,7 +39,7 @@ jobs:
         vuln-type: 'os,library'
         severity: 'CRITICAL'
 
-    #SucceedBranch
+    #SuccessBranch
     #Build and push Dockerhub
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
@@ -49,6 +54,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build and push
+      id: build-and-push
       uses: docker/build-push-action@v5
       with:
         push: true
@@ -59,26 +65,16 @@ jobs:
       uses: sigstore/cosign-installer@v3.1.1
       with:
         cosign-release: 'v2.1.1'
-    - name: Check install!
-      run: cosign version
-    
-    #FailBranch
-    #Send notification
-    - name: Slack Fail Notification
-      if: ${{failure()}}
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        SLACK_COLOR: ${{ job.status }}
-        SLACK_TITLE: "Scan Failed"
-        SLACK_MESSAGE: "Failed trivy scan, see uploaded report."
 
-    #Report file
-    - name: Upload report
-      if: ${{failure()}}
-      uses: MeilCli/slack-upload-file@v3
-      with:
-        slack_token: ${{ secrets.SLACK_BOT_TOKEN}}
-        channel_id: ${{secrets.CHANNEL_ID}}
-        file_path: './trivyReport.txt'
-        initial_comment: 'Trivy-Report'
+    - name: Sign image with a key
+      run: cosign sign --yes --key env://COSIGN_PRIVATE_KEY "${{secrets.DOCKERHUB_USERNAME}}/cicd-workshop:@${DIGEST}"
+      env:
+        COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+        DIGEST: ${{ steps.build-and-push.outputs.digest }}
+
+
+
+    - name: Verify
+      run: cosign verify --key env://COSIGN_PUBLIC_KEY "${{secrets.DOCKERHUB_USERNAME}}/cicd-workshop:${{github.sha}}" | jq .
+      env:
+        COSIGN_PUBLIC_KEY: ${{secrets.COSIGN_PUBLIC_KEY}}
