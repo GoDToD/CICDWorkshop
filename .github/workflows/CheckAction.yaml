@@ -77,6 +77,15 @@ jobs:
       env:
         COSIGN_PUBLIC_KEY: ${{secrets.COSIGN_PUBLIC_KEY}}
 
+    #Send notification
+    - name: Slack successful notification
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_COLOR: ${{ job.status }}
+        SLACK_TITLE: "Image build and signed"
+        SLACK_MESSAGE: "TEST.\nName:test\nMetriculation:aa\n"
+
     #FailBranch
     #Send notification
     - name: Slack Fail Notification
