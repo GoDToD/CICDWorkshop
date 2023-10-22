@@ -16,7 +16,7 @@ jobs:
       with:
         repository: ''
         ref: ''
-
+ 
     #Scan
     - name: Scan repo
       uses: aquasecurity/trivy-action@master
